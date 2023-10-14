@@ -1,0 +1,31 @@
+<div class="w-75 mx-auto py-4">
+    <h4>Login Now :</h4>
+    <div *ngIf="apiError.length>0" class="alert alert-danger">
+        {{apiError}}
+    </div>
+    <form  (ngSubmit)="handleLogin(loginForm)" [formGroup]="loginForm" >
+        <!-- <h2>{{registerForm.get('name')?.getError('minLength')|json}}</h2> -->
+       
+        <label for="email">email :</label>
+        <input formControlName="email" type="email" class="form-control mb-2" id="email">
+        <div class="alert alert-danger" *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched">
+            <p class="m-0" *ngIf="loginForm.get('email')?.getError('email')">Invalid Email</p> 
+            <p class="m-0" *ngIf="loginForm.get('email')?.getError('required')">Email is required</p> 
+ 
+         </div>
+        <label for="password">password :</label>
+        <input formControlName="password" type="password" class="form-control mb-2" id="password">
+        <div class="alert alert-danger" *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+            <p class="m-0" *ngIf="loginForm.get('password')?.getError('pattern')">Invalid password</p> 
+            <p class="m-0" *ngIf="loginForm.get('password')?.getError('required')">password is required</p> 
+ 
+         </div>
+       
+            <button [disabled]="loginForm.invalid" type="submit" class="btn bg-main text-white border-0  border-none ms-auto d-block ">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Login</span>
+            </button>
+    </form>
+    
+</div>
+
